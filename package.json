@@ -1,0 +1,16 @@
+{
+  "name": "hymnal_sda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "MANZI David Mercy",
+  "license": "ISC",
+  "description": "SDA Hymnal in Ikinyarwanda",
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}
