@@ -12,6 +12,8 @@ const certificate = fs.readFileSync(path.join(__dirname, 'https_certs/cert.pem')
 
 const credentials = { key: privateKey, cert: certificate };
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/hymns', async (req, res) => {
     try {
         const result = await db_conn.query('SELECT * FROM Hymns');
