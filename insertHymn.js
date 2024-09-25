@@ -8,16 +8,16 @@ const insertHymn = async () => {
     `;
 
     const values = [
-      'Murinzi We, Vuz’ Impanda',
+      'Umwam’ Ageze Kw‘Irembo',
       [
-        "Murinzi, jy‘ uvuz’ impanda, Uhan’ umuntu wese; Ng’ uzumv’ izo nkuru nziza, Yihan’ akizw’ ibyaha.",
-        "Yivugirize mu mpinga, Mw’ ishyamba mu gisiza; Ndetse no mu nyanja hose, Bameny’ ako gakiza.",
-        "Yivugirize mu nzira, Mu rwiherero hose. Dat’ arabategereje, Ntacy’ ataringanije.",
-        "Uyivugiriz‘ indembe, Nazo zikizw’ ibyaha. Yes’ arabatumir’ ati: Nimuze mbaboneze."
+        "Umwam’ ageze kw‘ irembo, Wabambwe ku musaraba; Yaje gukorany’ abera, Babane mw‘ ijuru.",
+        "Ibyerekana kuza kwe, Birihuta kuboneka; Kandi tugiye guhabwa, Kubaho kw‘ iteka.",
+        "Ntabw’ intambar’ izashira, Ntabw’ amahor‘ azahora, Kerek’ ibyaha n’ urupfu, Byatsembwe na Yesu.",
+        "Maze mw‘ isi yagizwe nshya, Niho tuzabahw‘ iteka; Kudapfa kwakuye gupfa, Dushiz’ agahinda."
       ],
-      'Murinzi we vuz’ impanda! Yivuze cyane hose (hose), Menyesha bos’ ubutumwa, Imbohe zibohorwe.',
-      1,
-      'Wm. J. Kirkpatrick'
+      'Kw‘ irembo (Kw‘ irembo), Kw‘ irembo (Kw‘ irembo), Kw‘ irembo, Ub‘ ari kw‘ irembo; Nukw‘ araje (araje), Nukw‘ araje (araje), Kand‘ ageze kw‘ irembo',
+      2,
+      'F. E. Belden'
     ];
 
     await db_conn.query(query, values);
