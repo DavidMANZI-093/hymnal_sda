@@ -6,12 +6,15 @@
 }
 
 :root {
+    --bg-pro-color: #d0e9e0;
     --bg-main-color: #e9f1ee;
     --bg-pre-color: #f3fcf7;
     --bg-sec-color: #f8faf9;
     --bg-ter-color: #f5faf7;
     --shd-color: #00140d6e;
     --font-sec-color: #272727;
+    --font-main-color: #575757;
+    --high-color: #57b386;
 }
 
 body {
@@ -34,6 +37,7 @@ body {
     align-items: center;
     justify-content: space-between;
     background-color: var(--bg-sec-color);
+    box-shadow: 0 0.1rem 1rem 0.1rem var(--shd-color);
 }
 
 .header .logo {
@@ -42,23 +46,50 @@ body {
     width: 4rem;
     border-radius: 50%;
     background-color: var(--bg-main-color);
+    background-image: url(./images/spd_logo.png);
+    background-position: center;
+    background-size: cover;
 }
 
 .header .search-bar {
     position: relative;
     display: flex;
+    align-items: center;
+    padding: 0.1rem 1.8rem 0 1.4rem;
     height: 4rem;
     width: 30%;
+    gap: 1rem;
     background-color: var(--bg-main-color);
     border-radius: 4rem;
     margin-right: calc(30% - 04rem);
+    color: var(--font-main-color);
+    transition: ease-in-out 50ms;
+}
+
+.search-bar:focus-within {
+    outline: solid 0.1rem var(--shd-color);
+}
+
+.search-bar i {
+    display: flex;
+    font-size: 2.2rem;
+}
+
+.search-bar input {
+    position: relative;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.6rem;
+    background-color: unset;
+    color: var(--font-main-color);
 }
 
 .main {
     position: relative;
     display: flex;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 6rem);
 }
 
 .main .aside {
@@ -78,31 +109,44 @@ body {
     height: 100%;
     overflow: hidden;
     border-radius: 0.8rem;
-    background-color: var(--bg-pre-color);
+    box-shadow: 0 2rem 1rem 0.1rem var(--shd-color);
 }
 
 .asd-body .head {
     position: relative;
     width: 100%;
     display: flex;
-    height: 5.6rem;
+    align-items: center;
+    padding: 0.1rem 1.8rem 0 1.4rem;
+    height: 6.6rem;
+    gap: 1rem;
     background-color: var(--bg-sec-color);
-    border-bottom: solid 1px var(--bg-main-color);
+    border-bottom: solid 1px var(--shd-color);
+}
+
+.head i {
+    display: flex;
+    font-size: 2.2rem;
+    color: var(--font-sec-color);
+}
+
+.head h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--font-sec-color);
 }
 
 .asd-body .load-wheel {
     position: relative;
-    display: block;
+    display: none;
     margin: auto;
     height: 1.2rem;
     width: 1.2rem;
     border-radius: 50%;
     border: solid 0.2rem var(--bg-pre-color);
-    border-bottom-color: #00bf63;
-    border-top-color: #00bf63;
-    border-left-color: #7ed957;
-    border-right-color: #7ed957;
-    animation: spin 500ms linear infinite;
+    border-left-color: var(--high-color);
+    border-right-color: var(--high-color);
+    animation: spin 1000ms linear infinite;
 }
 
 @keyframes spin {
@@ -118,8 +162,9 @@ body {
     width: 100%;
     height: 100%;
     gap: 0.3rem;
-    padding: 0.4rem 0;
+    padding: 0.3rem 0.3rem;
     list-style: none;
+    overflow-y: auto;
 }
 
 .hymn-list .hymn {
@@ -127,8 +172,30 @@ body {
     display: flex;
     width: 100%;
     height: 4rem;
+    padding: 1rem 2rem;
+    gap: 1rem;
     border-radius: 0.4rem;
-    background-color: var(--bg-ter-color);
+    background-color: var(--bg-sec-color);
+    cursor: pointer;
+    transition: ease-out 50ms;
+}
+
+.hymn-list .hymn:hover {
+    background-color: var(--bg-main-color);
+}
+
+.hymn-list .hymn:active {
+    background-color: var(--bg-pro-color);
+}
+
+.hymn .hymn-number {
+    font-size: 1.4rem;
+    color: var(--font-main-color);
+}
+
+.hymn .hymn-name {
+    font-size: 1.4rem;
+    color: var(--font-main-color);
 }
 
 .main .body {
@@ -144,9 +211,145 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     overflow: hidden;
     border-radius: 0.8rem;
     background-color: var(--bg-sec-color);
+    box-shadow: 0 2rem 1rem 0.1rem var(--shd-color);
+}
+
+.title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 6rem;
+    padding: 0 4rem;
+    justify-content: space-between;
+    border-bottom: solid 0.1rem var(--shd-color);
+}
+
+.title h1 {
+    display: inline-flex;
+    gap: 1rem;
+}
+
+.title h1 span {
+    font-size: 2rem;
+    color: var(--font-sec-color);
+    font-weight: 500;
+}
+
+.title h3 {
+    font-size: 1.2rem;
+}
+
+.bdy-body .lyrics-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.lyrics-box .lyrics {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: calc(600px + 6rem);
+    height: fit-content;
+    gap: 3.6rem;
+    padding: 6rem 6rem;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: 0.36rem;
+    height: 0.36rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #bbb;
+    border-radius: 0.6rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.lyrics .verse {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.lyrics .refrain {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-left: 6rem;
+}
+
+.verse .verse-number, .refrain .label {
+    display: inline-flex;
+    font-size: 1.2rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    line-height: 1.4rem;
+    box-shadow: 0 0.1rem 0.5rem 0.1rem var(--shd-color);
+    background-color: var(--bg-main-color);
+}
+
+.verse p {
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: justify;
+    line-height: 2.4rem;
+    color: var(--font-sec-color);
+}
+
+.refrain p {
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    border-radius: 0.8rem;
+    width: 80%;
+    text-align: justify;
+    line-height: 2.4rem;
+    color: var(--font-sec-color);
+    background-color: var(--bg-main-color);
+    box-shadow: 0 0.4rem 0.5rem 0.1rem var(--shd-color);
+}
+
+.refrain p em {
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--font-sec-color);
+}
+
+@media (max-width:960px) {
+    .main .aside {
+        width: fit-content;
+    }
+
+    .main .body {
+        width: 100%;
+    }
+
+    .head h2 {
+        display: none;
+    }
+
+    .hymn .hymn-name {
+        display: none;
+    }
 }
