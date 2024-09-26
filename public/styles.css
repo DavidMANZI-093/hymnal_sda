@@ -9,7 +9,7 @@
     --bg-main-color: #e9f1ee;
     --bg-pre-color: #f3fcf7;
     --bg-sec-color: #f8faf9;
-    --bg-ter-color: #f7f7f7;
+    --bg-ter-color: #f5faf7;
     --shd-color: #00140d6e;
     --font-sec-color: #272727;
 }
@@ -64,7 +64,7 @@ body {
 .main .aside {
     position: relative;
     display: flex;
-    width: 25%;
+    width: 20%;
     height: 100%;
     padding: 1rem;
     overflow: hidden;
@@ -85,15 +85,56 @@ body {
     position: relative;
     width: 100%;
     display: flex;
-    height: 4.8rem;
+    height: 5.6rem;
     background-color: var(--bg-sec-color);
     border-bottom: solid 1px var(--bg-main-color);
+}
+
+.asd-body .load-wheel {
+    position: relative;
+    display: block;
+    margin: auto;
+    height: 1.2rem;
+    width: 1.2rem;
+    border-radius: 50%;
+    border: solid 0.2rem var(--bg-pre-color);
+    border-bottom-color: #00bf63;
+    border-top-color: #00bf63;
+    border-left-color: #7ed957;
+    border-right-color: #7ed957;
+    animation: spin 500ms linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
+.asd-body .hymn-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 0.3rem;
+    padding: 0.4rem 0;
+    list-style: none;
+}
+
+.hymn-list .hymn {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 4rem;
+    border-radius: 0.4rem;
+    background-color: var(--bg-ter-color);
 }
 
 .main .body {
     position: relative;
     display: flex;
-    width: 75%;
+    width: 80%;
     height: 100%;
     padding: 1rem;
     overflow: hidden;
