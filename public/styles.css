@@ -6,9 +6,11 @@
 }
 
 :root {
-    --bg-main-color: #e4e3e3;
-    --bg-sec-color: #ffffff;
+    --bg-main-color: #e9f1ee;
+    --bg-pre-color: #f3fcf7;
+    --bg-sec-color: #f8faf9;
     --bg-ter-color: #f7f7f7;
+    --shd-color: #00140d6e;
     --font-sec-color: #272727;
 }
 
@@ -16,149 +18,94 @@ body {
     top: 0;
     left: 0;
     display: flex;
+    flex-direction: column;
     position: absolute;
     font-size: 1.6rem;
     font-family: "Inter", sans-serif;
     height: 100%;
     width: 100%;
-}
-
-.aside {
-    position: relative;
-    z-index: 1;
-    width: 30%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0.6rem;
     background-color: var(--bg-main-color);
 }
 
-.aside .main-header {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 8vh;
+.header {
     display: flex;
+    padding: 1rem 2rem;
+    height: 8hv;
     align-items: center;
-    padding: 0 1.6rem;
+    justify-content: space-between;
     background-color: var(--bg-sec-color);
-    border-radius: 0.8rem;
 }
 
-.aside .main-header h1 {
-    font-size: 1.6rem;
-    font-weight: 500;
-}
-
-.aside .all_songs {
+.header .logo {
     display: flex;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    gap: 1rem;
-    border-radius: 0.8rem;
-    flex-direction: column;
-    background-color: var(--bg-ter-color);
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    background-color: var(--bg-main-color);
 }
 
-.aside .all_songs .header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0 1.6rem;
-    height: 8vh;
-    background-color: var(--bg-sec-color);
-    color: var(--font-sec-color);
-}
-
-.aside .all_songs .header h2 {
-    font-size: 1.4rem;
-    font-weight: 500;
-}
-
-.aside .all_songs .header i {
-    font-size: 2.4rem;
-}
-
-.aside .song-list {
+.header .search-bar {
     position: relative;
     display: flex;
-    flex-direction: column;
-    list-style: none;
-    height: 100%;
-    padding: 0 0.6rem;
-}
-
-.aside .song-list .song {
-    display: flex;
-    gap: 0.6rem;
-    padding: 1rem 1.6rem;
-    border-radius: 0.8rem;
-    cursor: pointer;
-    background-color: var(--bg-sec-color);
-}
-
-.aside .song-list .song .song-number {
-    font-size: 1.4rem;
-}
-
-.aside .song-list .song .song-name {
-    font-size: 1.4rem;
+    height: 4rem;
+    width: 30%;
+    background-color: var(--bg-main-color);
+    border-radius: 4rem;
+    margin-right: calc(30% - 04rem);
 }
 
 .main {
     position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100vh;
     display: flex;
-    padding: 0.6rem;
-    background-color: var(--bg-main-color);
+    width: 100%;
+    height: 100%;
+}
+
+.main .aside {
+    position: relative;
+    display: flex;
+    width: 25%;
+    height: 100%;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.aside .asd-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background-color: var(--bg-pre-color);
+}
+
+.asd-body .head {
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: 4.8rem;
+    background-color: var(--bg-sec-color);
+    border-bottom: solid 1px var(--bg-main-color);
 }
 
 .main .body {
     position: relative;
-    overflow: hidden;
-    width: 100%;
+    display: flex;
+    width: 75%;
     height: 100%;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.body .bdy-body {
+    position: relative;
     display: flex;
     flex-direction: column;
-    border-radius: 0.8rem;
-    background-color: var(--bg-ter-color);
-}
-
-.main .body .header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: 8vh;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.8rem;
     background-color: var(--bg-sec-color);
-}
-
-.main .body .header .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    width: 40%;
-    height: fit-content;
-    padding: 0.6rem 1rem;
-    border-radius: 0.8rem;
-    border: solid 1px var(--font-sec-color);
-}
-
-.main .body .header .search-bar i {
-    font-size: 2rem;
-    color: var(--font-sec-color);
-}
-
-.main .body .header .search-bar input {
-    position: relative;
-    font-size: 1.4rem;
-    width: 100%;
-    height: fit-content;
-    border: none;
-    outline: none;
 }
