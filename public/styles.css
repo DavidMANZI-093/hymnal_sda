@@ -1,55 +1,164 @@
-/* public/styles.css */
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    box-sizing: border-box;
+    font-size: 62.5%;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+:root {
+    --bg-main-color: #e4e3e3;
+    --bg-sec-color: #ffffff;
+    --bg-ter-color: #f7f7f7;
+    --font-sec-color: #272727;
 }
 
-header {
+body {
+    top: 0;
+    left: 0;
     display: flex;
-    justify-content: space-between;
+    position: absolute;
+    font-size: 1.6rem;
+    font-family: "Inter", sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+.aside {
+    position: relative;
+    z-index: 1;
+    width: 30%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.6rem;
+    background-color: var(--bg-main-color);
+}
+
+.aside .main-header {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 8vh;
+    display: flex;
     align-items: center;
+    padding: 0 1.6rem;
+    background-color: var(--bg-sec-color);
+    border-radius: 0.8rem;
 }
 
-#searchBar {
-    padding: 10px;
-    width: 60%;
+.aside .main-header h1 {
+    font-size: 1.6rem;
+    font-weight: 500;
 }
 
-h2 {
-    margin-top: 20px;
-    font-size: 1.5rem;
-    color: #333;
+.aside .all_songs {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+    border-radius: 0.8rem;
+    flex-direction: column;
+    background-color: var(--bg-ter-color);
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.aside .all_songs .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1.6rem;
+    height: 8vh;
+    background-color: var(--bg-sec-color);
+    color: var(--font-sec-color);
 }
 
-li {
-    background-color: #fff;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+.aside .all_songs .header h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.aside .all_songs .header i {
+    font-size: 2.4rem;
+}
+
+.aside .song-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    height: 100%;
+    padding: 0 0.6rem;
+}
+
+.aside .song-list .song {
+    display: flex;
+    gap: 0.6rem;
+    padding: 1rem 1.6rem;
+    border-radius: 0.8rem;
     cursor: pointer;
+    background-color: var(--bg-sec-color);
 }
 
-li:hover {
-    background-color: #e6e6e6;
+.aside .song-list .song .song-number {
+    font-size: 1.4rem;
 }
 
-.hymn-details {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    display: none;
+.aside .song-list .song .song-name {
+    font-size: 1.4rem;
+}
+
+.main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding: 0.6rem;
+    background-color: var(--bg-main-color);
+}
+
+.main .body {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.8rem;
+    background-color: var(--bg-ter-color);
+}
+
+.main .body .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 8vh;
+    background-color: var(--bg-sec-color);
+}
+
+.main .body .header .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 40%;
+    height: fit-content;
+    padding: 0.6rem 1rem;
+    border-radius: 0.8rem;
+    border: solid 1px var(--font-sec-color);
+}
+
+.main .body .header .search-bar i {
+    font-size: 2rem;
+    color: var(--font-sec-color);
+}
+
+.main .body .header .search-bar input {
+    position: relative;
+    font-size: 1.4rem;
+    width: 100%;
+    height: fit-content;
+    border: none;
+    outline: none;
 }

@@ -4,26 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hymnal App</title>
+    <title>Indirimbo zo Guhimbaza Imana</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Hymnal</h1>
-            <input type="text" id="searchBar" placeholder="Search hymns...">
+    <section class="aside">
+        <header class="main-header">
+            <div>
+                <h1>Indirimbo zo Guhimbaza Imana</h1>
+            </div>
         </header>
-        
-        <section class="hymn-list">
-            <h2>Hymn List</h2>
-            <ul id="hymnList"></ul>
-        </section>
+        <div class="all_songs">
+            <div class="header">
+                <i class='bx bx-list-ul'></i>
+                <h2>Indirimbo Zose</h2>
+            </div>
+            <ul class="song-list">
+                <li class="song">
+                    <div class="song-number">1</div>
+                    <div class="song-name">Nzareba</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="main">
+        <div class="body">
+            <div class="header">
+                <div class="search-bar">
+                    <i class='bx bx-search-alt-2' ></i>
+                    <input type="text" placeholder="Shaka...">
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section class="hymn-details">
-            <h2>Hymn Details</h2>
-            <div id="hymnDetails"></div>
-        </section>
-    </div>
-    <script src="app.js"></script>
+
+    <!-- <script src="app.js"></script> -->
 </body>
 </html>
