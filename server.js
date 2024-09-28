@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/hymns', async (req, res) => {
     try {
-        const result = await db_conn.query('SELECT * FROM Hymns');
+        const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
         res.json(result.rows);
     } catch (err) {
         console.error('Error fetching hymns', err);

@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 62.5%;
+    user-select: none;
+    scroll-behaviour: smooth;
 }
 
 :root {
@@ -46,7 +48,7 @@ body {
     width: 4rem;
     border-radius: 50%;
     background-color: var(--bg-main-color);
-    background-image: url(./images/spd_logo.png);
+    /* background-image: url(./images/spd_logo.png); */
     background-position: center;
     background-size: cover;
 }
@@ -54,20 +56,46 @@ body {
 .header .search-bar {
     position: relative;
     display: flex;
-    align-items: center;
-    padding: 0.1rem 1.8rem 0 1.4rem;
-    height: 4rem;
+    flex-direction: column;
     width: 30%;
-    gap: 1rem;
-    background-color: var(--bg-main-color);
+    margin-right: calc(30% - 4rem);
     border-radius: 4rem;
-    margin-right: calc(30% - 04rem);
-    color: var(--font-main-color);
-    transition: ease-in-out 50ms;
+    overflow: hidden;
+}
+
+.search-bar .hymn-list.searched {
+    flex-direction: column;
+    position: absolute;
+    top: 5rem;
+    right: 3.2rem;
+    z-index: 5;
+    max-width: 24rem;
+    width: 60%;
+    overflow-y: auto;
+    height: 60%;
+    border-radius: 0.8rem;
+    transform: scale(0);
+    background-color: var(--bg-sec-color);
+    box-shadow: 0 0.5rem 1rem 0.1rem var(--shd-color);
+    transition: ease 100ms;
+    transform-origin: top right;
 }
 
 .search-bar:focus-within {
     outline: solid 0.1rem var(--shd-color);
+}
+
+.search-bar .funct-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.1rem 1.8rem 0 1.4rem;
+    height: 4rem;
+    width: 100%;
+    gap: 1rem;
+    background-color: var(--bg-main-color);
+    color: var(--font-main-color);
+    transition: ease-in-out 50ms;
 }
 
 .search-bar i {
@@ -83,6 +111,51 @@ body {
     font-size: 1.6rem;
     background-color: unset;
     color: var(--font-main-color);
+}
+
+.header .list-toggler {
+    display: none;
+    cursor: pointer;
+}
+
+.list-toggler i {
+    font-size: 2.6rem;
+    color: var(--font-sec-color);
+}
+
+.backdrop {
+    position: absolute;
+    display: flex;
+    z-index: 4;
+    top: 6rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0);
+    background-color: var(--shd-color);
+}
+
+.hymn-list.outsided {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 5rem;
+    right: 3.2rem;
+    z-index: 5;
+    max-width: 24rem;
+    width: 60%;
+    overflow-y: auto;
+    height: 60%;
+    border-radius: 0.8rem;
+    transform: scale(0);
+    background-color: var(--bg-sec-color);
+    box-shadow: 0 0.5rem 1rem 0.1rem var(--shd-color);
+    transition: ease 300ms;
+    transform-origin: top right;
+}
+
+.hymn-list.outsided .hymn i {
+    font-size: 1.4rem;
 }
 
 .main {
@@ -118,7 +191,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0.1rem 1.8rem 0 1.4rem;
-    height: 6.6rem;
+    height: 6rem;
     gap: 1rem;
     background-color: var(--bg-sec-color);
     border-bottom: solid 1px var(--shd-color);
@@ -136,9 +209,9 @@ body {
     color: var(--font-sec-color);
 }
 
-.asd-body .load-wheel {
+.asd-body .load-wheel, .load-wheel {
     position: relative;
-    display: none;
+    display: flex;
     margin: auto;
     height: 1.2rem;
     width: 1.2rem;
@@ -194,6 +267,9 @@ body {
 }
 
 .hymn .hymn-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     font-size: 1.4rem;
     color: var(--font-main-color);
 }
@@ -225,7 +301,7 @@ body {
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: 6rem;
+    height: 6rem;
     padding: 0 4rem;
     justify-content: space-between;
     border-bottom: solid 0.1rem var(--shd-color);
@@ -259,7 +335,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: calc(600px + 6rem);
+    max-width: calc(600px + 6rem);
     height: fit-content;
     gap: 3.6rem;
     padding: 6rem 6rem;
@@ -321,7 +397,7 @@ body {
     font-size: 1.6rem;
     padding: 1rem 2rem;
     border-radius: 0.8rem;
-    width: 80%;
+    width: 90%;
     text-align: justify;
     line-height: 2.4rem;
     color: var(--font-sec-color);
@@ -337,19 +413,82 @@ body {
 }
 
 @media (max-width:960px) {
+    .header .search-bar {
+        width: 35%;
+        margin-right: calc(22% - 4rem);
+    } 
+
     .main .aside {
-        width: fit-content;
+        width: 30%;
+    }
+
+    .main .body {
+        width: 70%
+    }
+}
+
+@media (max-width: 720px) {
+    .header {
+        justify-content: space-between;
+    }
+
+    .header .search-bar {
+        width: 40%;
+        margin: 0;
+    } 
+
+    .header .list-toggler {
+        display: flex;
+    }
+
+    .hymn-list.outsided.show {
+        transform: scale(1);
+    }
+
+    
+    .backdrop.show {
+        transform: scale(1);
+    }
+
+    .list-toggler i.show {
+        display: flex;
+    }
+
+    .list-toggler i {
+        display: none;
+    }
+
+    .main .aside {
+        display: none;
     }
 
     .main .body {
         width: 100%;
     }
+}
 
-    .head h2 {
+@media (max-width: 540px) {
+    .header .search-bar {
+        width: 60%;
+    }
+
+    .title {
+        padding: 0 2rem;
+    }
+
+    .title h3 {
         display: none;
     }
 
-    .hymn .hymn-name {
-        display: none;
+    .lyrics-box .lyrics {
+        padding: 6rem 4rem 6rem 2rem;
+    }
+
+    .lyrics .refrain {
+        margin-left: 4rem;
+    }
+
+    .refrain p{
+        width: 98%;
     }
 }

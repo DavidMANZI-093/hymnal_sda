@@ -8,16 +8,16 @@ const insertHymn = async () => {
     `;
 
     const values = [
-      'Umwam’ Ageze Kw‘Irembo',
+      'Murinzi We Menyesh’ Igihe',
       [
-        "Umwam’ ageze kw‘ irembo, Wabambwe ku musaraba; Yaje gukorany’ abera, Babane mw‘ ijuru.",
-        "Ibyerekana kuza kwe, Birihuta kuboneka; Kandi tugiye guhabwa, Kubaho kw‘ iteka.",
-        "Ntabw’ intambar’ izashira, Ntabw’ amahor‘ azahora, Kerek’ ibyaha n’ urupfu, Byatsembwe na Yesu.",
-        "Maze mw‘ isi yagizwe nshya, Niho tuzabahw‘ iteka; Kudapfa kwakuye gupfa, Dushiz’ agahinda."
+        "Murinzi we! Menyesh’ igihe! Mbes’ iwacu n’ imuhero? At’ ijoro ryijimye cyane, Ariko buracya. Ntukarire, Gumy’ ugende, Nturorere kwiringira, Kugez’ igih’ uzasohora, Mu muns’ uhoraho.",
+        "Murwanyi we ! Tyo mbwira nawe ! Ansubiza yitonz’ ati: Intambar’ igiye gushira. Guma ku rugamba. Wibabara, Ihangane, Wirek’ imirimo yawe, Kuko tuzabon’ ibihembo, Tumaze gutsinda.",
+        "Ndacyabaz’ ibyaremwe byose, Binsubiza bitya biti: Iy’ is’ igiye guhanguka. Haz’ ind’ idashira. Ntukarir’ ibimenyetso, Byerekan’ aho tugeze, Kand’ ibintu byose byaremwe, Biriteg’ impanda.",
+        "Imuhir’ ubu ni bugufi, Tunezerwe mu mitima. Duhumure ko tuzakira, Dushir’ agahinda. Ntukarire tuzabana, Amakub’ azab’ ashize. Ntabwo tuzabur’ amahoro mu rugo rwa Data."
       ],
-      'Kw‘ irembo (Kw‘ irembo), Kw‘ irembo (Kw‘ irembo), Kw‘ irembo, Ub‘ ari kw‘ irembo; Nukw‘ araje (araje), Nukw‘ araje (araje), Kand‘ ageze kw‘ irembo',
-      2,
-      'F. E. Belden'
+      '',
+      5,
+      'Arranged'
     ];
 
     await db_conn.query(query, values);
