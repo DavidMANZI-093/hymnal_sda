@@ -5,7 +5,7 @@ const db_conn = require('./db');
 const path = require('path');
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
 const privateKey = fs.readFileSync(path.join(__dirname, 'https_certs/key.pem'), 'utf8');
 const certificate = fs.readFileSync(path.join(__dirname, 'https_certs/cert.pem'), 'utf8');
