@@ -49,7 +49,7 @@ fetchHymns();
 
 function displayHymns(hymns) {
     setTimeout(() => {
-        window.alert(`Turabasaba kwihanganira umubare muto w' indirimbo (${hymns.length}). Izindi ziracyashyirwa muri sisitemu`);
+        window.alert(`Turabasaba kwihanganira umubare muto w' indirimbo (${hymns.length + 1}). Izindi ziracyashyirwa muri sisitemu. Murakoze!`);
     }, 2000);
 
     const lyricsPage = document.querySelector('.lyrics');
