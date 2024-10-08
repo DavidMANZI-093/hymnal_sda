@@ -5,20 +5,22 @@ const updateHymn = async () => {
     const query = `
       UPDATE Hymns
       SET title = $1, verses = $2, refrain = $3, number = $4, author = $5
-      WHERE id = 3;
+      WHERE id = 12;
     `;
 
     const values = [
-      'Nzabona Yesu',
+      'Har’ Isoko',
       [
-        "Nzabona Yesu mu maso, Umuns’ azatujyana; Niho nzamwitegereza, Kw’ ari we wampfiriye.",
-        "Ubu ndamutekereza, Ariko simurora; Umuns’ uhiriw’ uzaza, Nzamubonan’ ubwiza.",
-        "Tuzishimir’ imbere ye, Ubw’ ishavu rishize; Ibigande biganduwe, N’ ahijimye hakeye.",
-        "Nzanezererw’ imbere ye, Nzamurora mumenye; Nzabana na Yes’ unkunda, Niwe Mukiza wanjye."
+        "Har’ isokw’ ivamw’ amaraso, Yo mu mitsi y’ Imanuweri. Niy’ atungany’ abanyabyaha, Bagashirahw’ inenge, Bagatsembwahw’ ibicumuro, Byose bikabacikaho. Niy’ atungany’ abanyabyaha, Bagashirahw’ inenge.",
+        "Igisambo ku musaraba, Kiyarabutswe cyarihannye; Nanjye mbwiriza nkwizigire, Noye kujya ncumura; Ibyaha mbicikeho rwose, Noye kujya nkugomera; Nanjye mbwiriza nkwizigire, Noye kujya ncumura.",
+        "Amaraso yaw’ atunganye, Ahoran’ imbaraga nyinshi; Niyo wacunguj’ itorero, Aritsembamw’ ibyaha; Ryaganjij’ imbaraga yabyo. Ryarabirokotse rwose. Niyo wacunguj’ itorero, Yaritsembyemw’ ibyaha.",
+        "Mperey’ igihe meny’ isoko, Iva mu bikomere byawe. Nogez’ urwo rukundo rwawe, Nzahora ngusingiza; Nzahora ngusingiz’ iteka, Nzajya ngusingiz’ iteka. Nogez’ urwo rukundo rwawe, Nzahora ngusingiza.",
+        "Mwami mpora ngucumuraho, Mpa kwizer’ imbabazi zawe! N’ amaraso yaw’ atunganye, Mpa kuramishwa nawe! Mpa kuramishwa nawe Yesu! Mpa no kuramishwa nawe! N’ amaraso yaw’ atunganye, Mpa kuramishwa nawe!",
+        "Har’ indirimbo zera ntazi, Nzaziririmbira mw’ ijuru. Naho nagobw’ ururim’ ubu, Uzarugobotora; Uzarugobotora Yesu, Ni wow’ uzankiza rwose. Naho nagobw’ ururim’ ubu, Uzarugobotora."
       ],
-      'Nzamurora mu maso ye, Turi kumwe mw’ ijuru; Meny’ uk’ ubwiza bwe busa, Nzamusingiz’ iteka.',
-      3,  // This will replace the number 4 with itself
-      'Grant Colfax Tullar'
+      '',
+      12,
+      'Unknown'
     ];
 
     await db_conn.query(query, values);
