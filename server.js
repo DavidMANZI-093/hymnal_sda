@@ -1,16 +1,16 @@
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 const db_conn = require('./db');
 const path = require('path');
 const app = express();
 
 const port = process.env.PORT || 10000;
 
-const privateKey = fs.readFileSync(path.join(__dirname, 'https_certs/key.pem'), 'utf8');
-const certificate = fs.readFileSync(path.join(__dirname, 'https_certs/cert.pem'), 'utf8');
+// const privateKey = fs.readFileSync(path.join(__dirname, 'https_certs/key.pem'), 'utf8');
+// const certificate = fs.readFileSync(path.join(__dirname, 'https_certs/cert.pem'), 'utf8');
 
-const credentials = { key: privateKey, cert: certificate };
+// const credentials = { key: privateKey, cert: certificate };
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,3 +44,5 @@ const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(port, () => {
     console.log(`HTTPS Server running on port ${port}`);
 });
+
+// ------------------------------------------------------ //
