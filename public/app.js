@@ -48,6 +48,10 @@ async function fetchHymns() {
 fetchHymns();
 
 function displayHymns(hymns) {
+    setTimeout(() => {
+        window.alert(`Turabasaba kwihanganira umubare muto w' indirimbo (${hymns.length}). Izindi ziracyashyirwa muri sisitemu`);
+    }, 2000);
+
     const lyricsPage = document.querySelector('.lyrics');
     lyricsPage.classList.add('changed');
 
