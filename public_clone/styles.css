@@ -130,11 +130,12 @@ body * {
 }
 
 .search-box .result-list {
-    position: relative;
+    position: abs;
     top: 0.5rem;
     display: flex;
+    flex-direction: column;
     width: 90%;
-    min-height: fit-content;
+    height: fit-content;
     border-radius: 0.8rem;
     background-color: var(--mhhh-color);
     box-shadow: 0 0.2rem 1rem var(--mh-color);
@@ -180,14 +181,16 @@ body * {
     width: 100%;
     max-width: 24rem;
     height: fit-content;
-    max-height: 60rem;
+    max-height: 52rem;
     gap: 0.4rem;
     padding: 0.2rem;
     border-radius: 0.4rem;
     overflow-y: auto;
     transform: scale(0);
+    transform-origin: top right;
     background-color: var(--mhh-color);
     box-shadow: 0 0.5rem 1rem var(--main-color);
+    transition: transform ease 200ms;
 }
 
 
@@ -371,6 +374,13 @@ body * {
     background-color: var(--mhhh-color);
 }
 
+.hymn-title .hymn-number, .hymn-title .hymn-name {
+    display: inline-flex;
+    font-weight: 500;
+    font-size: 2rem;
+    color: var(--ml-color);
+}
+
 .hymn-title .name-holder {
     position: relative;
     display: inline-flex;
@@ -395,6 +405,13 @@ body * {
     width: 100%;
     border-radius: 0.6rem;
     background-color: var(--mhhh-color);
+}
+
+.hymn-author h3 {
+    display: inline-flex;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--mlll-color);
 }
 
 .main-body .lyrics-box {
@@ -510,7 +527,7 @@ body * {
         display: flex;
     }
 
-    .page-header .hymn-list.active {
+    .page-header .outer-list.active {
         transform: scale(1);
     }
 
