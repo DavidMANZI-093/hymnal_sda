@@ -1,183 +1,28 @@
-const listTogglers = document.querySelectorAll('.toggler');
-const outerHymnList = document.querySelector('.outsided');
-const backDrop = document.querySelector('.backdrop');
-
-listTogglers[0].addEventListener('click', () => {
-    listTogglers[0].classList.remove('show');
-    listTogglers[1].classList.add('show');
-    outerHymnList.classList.add('show');
-    backDrop.classList.add('show');
-    outerHymnList.focus();
-});
-
-listTogglers[1].addEventListener('click', () => {
-    listTogglers[0].classList.add('show');
-    listTogglers[1].classList.remove('show');
-    outerHymnList.classList.remove('show');
-    backDrop.classList.remove('show');
-});
-
-// outerHymnList.addEventListener('blur', () => {
-//     setTimeout(() => {
-//         listTogglers[0].classList.add('show');
-//         listTogglers[1].classList.remove('show');
-//         outerHymnList.classList.remove('show');
-//         backDrop.classList.remove('show');
-//     }, 10);
-// });
-
-backDrop.addEventListener('click', () => {
-    listTogglers.forEach(toggler => {
-        toggler.classList.toggle('show');
-    });
-    outerHymnList.classList.toggle('show');
-    backDrop.classList.toggle('show');
-});
-
-const hymnLists = document.querySelectorAll('.hymn-list');
-
-async function fetchHymns() {
-    try {
-        const response = await fetch('/hymns');
-        const hymns = await response.json();
-        displayHymns(hymns);
-    } catch (error) {
-        console.error('Error fetching hymns:', error);
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 767) {
+        fcToggleHymnList();
     }
-}
-fetchHymns();
+});
 
-function displayHymns(hymns) {
+const searchInputField = document.querySelector('#search-in');
+const searchBar = document.querySelector('.search-bar');
+const resultList = document.querySelector('.result-list');
+
+searchInputField.addEventListener('focus', () => {
+    searchBar.classList.add('focus');
+});
+
+searchInputField.addEventListener('blur', () => {
     setTimeout(() => {
-        window.alert(`Turabasaba kwihanganira umubare muto w' indirimbo (${hymns.length + 1}). Izindi ziracyashyirwa muri sisitemu. Murakoze!`);
-    }, 2000);
-
-    const lyricsPage = document.querySelector('.lyrics');
-    lyricsPage.classList.add('changed');
-
-    hymnLists.forEach(hymnList => hymnList.innerHTML = '');
-    hymnLists.forEach(hymnList => {
-        if (hymnList.classList.contains('outsided')) {
-            hymns.forEach(hymn => {
-                const li = document.createElement('li');
-                li.classList.add('hymn','outers');
-                const hymnNumber = document.createElement('span');
-                hymnNumber.classList.add('hymn-number');
-                hymnNumber.textContent = hymn.number;
-                const hymnTitle = document.createElement('span');
-                hymnTitle.classList.add('hymn-name');
-                hymnTitle.textContent = hymn.title;
-                li.appendChild(hymnNumber);
-                li.appendChild(hymnTitle);
-                hymnList.appendChild(li);
-            });
-        } else if (hymnList.classList.contains('insided')) {
-            hymns.forEach(hymn => {
-                const li = document.createElement('li');
-                li.classList.add('hymn','insiders');
-                const hymnNumber = document.createElement('span');
-                hymnNumber.classList.add('hymn-number');
-                hymnNumber.textContent = hymn.number;
-                const hymnTitle = document.createElement('span');
-                hymnTitle.classList.add('hymn-name');
-                hymnTitle.textContent = hymn.title;
-                li.appendChild(hymnNumber);
-                li.appendChild(hymnTitle);
-                hymnList.appendChild(li);
-            }); 
-        }
-    });
-
-    updateHymnView(hymns[0]);
-    attachListeners(hymns);
-    initiateSearch(hymns);
-}
-
-async function updateHymnView(object) {
-    if (object) {
-	    const titleNumber = document.querySelector('.title-number');
-        titleNumber.textContent = `${object.number}.`;
-        const titleName = document.querySelector('.title-name');
-        titleName.textContent = `${object.title}`;
-        const titleAuthor = document.querySelector('.title-author');
-        titleAuthor.textContent = `${object.author}`;
-        const lyrics = document.querySelector('.lyrics');
-        lyrics.innerHTML = '';
-        object.verses.forEach(verse => {
-            if ((object.verses.indexOf(verse)) === 1 && object.refrain) {
-                const div = document.createElement('div');
-                div.classList.add('refrain');
-                const p = document.createElement('p');
-                p.innerHTML = `<em>Gusubiramo:</em><br>${object.refrain}`;
-                div.appendChild(p);
-                lyrics.appendChild(div);
-            }
-            const span = document.createElement('span');
-            span.classList.add('verse-number');
-            span.textContent = `${object.verses.indexOf(verse) + 1}.`;
-            const p = document.createElement('p');
-            p.textContent = verse;
-            const div = document.createElement('div');
-            div.classList.add('verse');
-            div.appendChild(span);
-            div.appendChild(p);
-            lyrics.appendChild(div);
-        });
-    }
-}
-
-
-function attachListeners(hymnsArr) {
-    const hymns_O = document.querySelectorAll('.outers');
-    const hymnArray_O = Array.from(hymns_O);
-
-    hymnArray_O.forEach(hymn => {
-        hymn.addEventListener('click', (event) => {
-            updateHymnView(hymnsArr[hymnArray_O.indexOf(event.target.closest('.outers'))]);
-	        listTogglers.forEach(toggler => {
-                toggler.classList.toggle('show');
-            });
-            outerHymnList.classList.toggle('show');
-            backDrop.classList.toggle('show');
-	    });
-    });
-
-    const hymns_I = document.querySelectorAll('.insiders');
-    const hymnArray_I = Array.from(hymns_I);
-
-    hymnArray_I.forEach(hymn => {
-        hymn.addEventListener('click', (event) => {
-            updateHymnView(hymnsArr[hymnArray_I.indexOf(event.target.closest('.insiders'))]);
-	    });
-    });
-}
-
-const searchBar = document.querySelector('.search-input');
-const searchBox = document.querySelector('.funct-wrap');
-const resultList = document.querySelector('.searched-list');
+        searchBar.classList.remove('focus');
+        resultList.innerHTML = '';
+        searchInputField.value = '';
+    }, 100);
+});
 
 function initiateSearch(hymns) {
     
-    searchBar.addEventListener('click', () => {
-        searchBox.classList.add('round');
-        resultList.classList.add('active');
-        if (outerHymnList.classList.contains('show')) {
-            listTogglers[0].classList.add('show');
-        listTogglers[1].classList.remove('show');
-        outerHymnList.classList.remove('show');
-        backDrop.classList.remove('show');
-        }
-    });
-
-    searchBar.addEventListener('blur', () => {
-        setTimeout(() => {
-            searchBox.classList.remove('round');
-            resultList.classList.remove('active');
-        }, 50);
-    });
-
-
-    searchBar.addEventListener('input', (event) => {
+    searchInputField.addEventListener('input', (event) => {
         resultList.innerHTML = '';
         const input = event.target.value.trim();
     
@@ -186,17 +31,24 @@ function initiateSearch(hymns) {
             li.classList.add('hymn', 'results');
             const hymnNumber = document.createElement('span');
             hymnNumber.classList.add('hymn-number');
-            hymnNumber.textContent = hymns.number;
+            hymnNumber.innerHTML = hymns.number;
             const hymnTitle = document.createElement('span');
             hymnTitle.classList.add('hymn-name');
             hymnTitle.textContent = hymns.title;
             li.appendChild(hymnNumber);
             li.appendChild(hymnTitle);
-            li.addEventListener('click', () => {
-                updateHymnView(hymns);
-                searchBar.value = '';
-                resultList.innerHTML = '';
-            });
+            if (!(hymns?.touch) && (hymns.touch === false)) {
+                li.addEventListener('click', () => {
+                    searchInputField.value = '';
+                    resultList.innerHTML = '';
+                });
+            } else {
+                li.addEventListener('click', () => {
+                    updateHymnView(hymns);
+                    searchInputField.value = '';
+                    resultList.innerHTML = '';
+                });
+            }
             resultList.appendChild(li);
         }
     
@@ -207,6 +59,13 @@ function initiateSearch(hymns) {
         if (!isNaN(input) && input !== '') {
             if (input <= hymns.length && input > 0) {
                 const response = hymns[input - 1];
+                listFiller(response);
+            } else {
+                const response = {
+                    touch: false,
+                    number: "<i class='bx bx-info-circle'></i>",
+                    title: 'Nta gisubizo!'
+                }
                 listFiller(response);
             }
         } else {
@@ -232,4 +91,170 @@ function initiateSearch(hymns) {
         }
     });
     
+}
+
+// -------------------------------------- //
+
+const openPlaylistButton = document.querySelector('.open-playlist');
+const closePlaylistButton = document.querySelector('.close-playlist');
+const playlistButton = document.querySelector('.playlist-toggler');
+const backdrop = document.querySelector('.drop-back');
+const outerHymnPlaylist = document.querySelector('.outer-list');
+const header = document.querySelector('.page-header');
+
+
+function toggleHymnList() {
+    openPlaylistButton.classList.toggle('show');
+    closePlaylistButton.classList.toggle('show');
+    backdrop.classList.toggle('show');
+    outerHymnPlaylist.classList.toggle('active');
+}
+
+function fcToggleHymnList() {
+    if (outerHymnPlaylist.classList.contains('active')) {
+        toggleHymnList();
+    }
+}
+
+function hFcToggleHymnList(e) {
+    if (outerHymnPlaylist.classList.contains('active') && !(e.target.closest('.playlist-toggler'))) {
+        toggleHymnList();
+    }
+}
+
+playlistButton.addEventListener('click', toggleHymnList);
+backdrop.addEventListener('click', fcToggleHymnList);
+header.addEventListener('click', (e) => hFcToggleHymnList(e));
+
+// -------------------------------------- //
+
+async function fetchHymns() {
+    try {
+        const response = await fetch('/hymns');
+        const hymns = await response.json();
+        displayHymns(hymns);
+    } catch (error) {
+        console.error('Error fetching hymns:', error);
+    }
+}
+fetchHymns();
+
+
+const hymnLists = document.querySelectorAll('.hymn-list');
+function displayHymns(hymns) {
+
+    hymnLists.forEach(hymnList => hymnList.innerHTML = '');
+    hymnLists.forEach(hymnList => {
+        if (hymnList.classList.contains('outer-list')) {
+            hymns.forEach(hymn => {
+                const li = document.createElement('li');
+                li.classList.add('hymn','outer-hymn');
+                const hymnNumber = document.createElement('span');
+                hymnNumber.classList.add('hymn-number');
+                hymnNumber.textContent = hymn.number;
+                const hymnTitle = document.createElement('span');
+                hymnTitle.classList.add('hymn-name');
+                hymnTitle.textContent = hymn.title;
+                li.appendChild(hymnNumber);
+                li.appendChild(hymnTitle);
+                hymnList.appendChild(li);
+            });
+        } else if (hymnList.classList.contains('origin-list')) {
+            hymns.forEach(hymn => {
+                const li = document.createElement('li');
+                li.classList.add('hymn','origin-hymn');
+                const hymnNumber = document.createElement('span');
+                hymnNumber.classList.add('hymn-number');
+                hymnNumber.textContent = hymn.number;
+                const hymnTitle = document.createElement('span');
+                hymnTitle.classList.add('hymn-name');
+                hymnTitle.textContent = hymn.title;
+                li.appendChild(hymnNumber);
+                li.appendChild(hymnTitle);
+                hymnList.appendChild(li);
+            }); 
+        }
+    });
+
+    updateHymnView(hymns[0]);
+    attachListeners(hymns);
+    initiateSearch(hymns);
+}
+
+async function updateHymnView(object) {
+    if (object) {
+        const asideIconHolder = document.querySelector('.asd-head .icon-holder');
+        const asideHeadHolder = document.querySelector('.asd-head .head-holder');
+        if (asideIconHolder && asideHeadHolder) {
+            asideIconHolder.remove();
+            asideHeadHolder.remove();
+        }
+
+        const asideIcon = document.querySelector('.asd-head .head-icon');
+        const asideTitle = document.querySelector('.asd-head .head-text');
+        asideTitle.style.display = 'inline-flex';
+        asideIcon.style.display = 'inline-flex';
+
+        const hymnTitle = document.querySelector('.hymn-title');
+        const hymnAuthor = document.querySelector('.hymn-author');
+        hymnTitle.innerHTML = '';
+        hymnAuthor.innerHTML = '';
+        const span1 = document.createElement('span');
+        span1.classList.add('hymn-number');
+        span1.textContent = `${object.number}.`;
+        const span2 = document.createElement('span');
+        span2.classList.add('hymn-name');
+        span2.textContent = `${object.title}`;
+        const h3 = document.createElement('h3');
+        h3.textContent = `${object.author}`;
+
+        hymnTitle.appendChild(span1);
+        hymnTitle.appendChild(span2);
+        hymnAuthor.appendChild(h3);
+
+	    const lyrics = document.querySelector('.lyrics');
+        lyrics.innerHTML = '';
+        object.verses.forEach(verse => {
+            if ((object.verses.indexOf(verse)) === 1 && object.refrain) {
+                const div = document.createElement('div');
+                div.classList.add('refrain');
+                const p = document.createElement('p');
+                p.innerHTML = `<em>Gusubiramo:</em><br>${object.refrain}`;
+                div.appendChild(p);
+                lyrics.appendChild(div);
+            }
+            const span = document.createElement('span');
+            span.classList.add('number');
+            span.textContent = `${object.verses.indexOf(verse) + 1}`;
+
+            const p = document.createElement('p');
+            p.textContent = verse;
+            const div = document.createElement('div');
+            div.classList.add('verse');
+            div.appendChild(span);
+            div.appendChild(p);
+            lyrics.appendChild(div);
+        });
+    }
+}
+
+function attachListeners(hymnsArr) {
+    const hymns_O = document.querySelectorAll('.outer-hymn');
+    const hymnArray_O = Array.from(hymns_O);
+
+    hymnArray_O.forEach(hymn => {
+        hymn.addEventListener('click', (event) => {
+            updateHymnView(hymnsArr[hymnArray_O.indexOf(event.target.closest('.outer-hymn'))]);
+            toggleHymnList();
+	    });
+    });
+
+    const hymns_I = document.querySelectorAll('.origin-hymn');
+    const hymnArray_I = Array.from(hymns_I);
+
+    hymnArray_I.forEach(hymn => {
+        hymn.addEventListener('click', (event) => {
+            updateHymnView(hymnsArr[hymnArray_I.indexOf(event.target.closest('.origin-hymn'))]);
+	    });
+    });
 }

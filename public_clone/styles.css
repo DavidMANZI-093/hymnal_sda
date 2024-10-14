@@ -220,7 +220,7 @@ body * {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 2rem;
     gap: 1rem;
     height: 5.2rem;
     background-color: var(--mhh-color);
@@ -235,6 +235,15 @@ body * {
     background-color: var(--mhhh-color);
 }
 
+.asd-head .head-icon {
+    display: inline-flex;
+}
+
+.head-icon i {
+    font-size: 2.2rem;
+    color: var(--ml-color);
+}
+
 .asd-head .head-holder {
     position: relative;
     display: inline-flex;
@@ -242,6 +251,13 @@ body * {
     width: 80%;
     border-radius: 0.6rem;
     background-color: var(--mhhh-color);
+}
+
+.asd-head h3 {
+    display: inline-flex;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--ml-color);
 }
 
 .aside-body .asd-body {
