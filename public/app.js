@@ -78,19 +78,19 @@ function initiateSearch(hymns) {
     
                 const response_S = [];
     
-                hymns.forEach(hymn => {
+                for (const hymn of hymns) {
                     if (searchKey.test(hymn.title)) {
                         response_S.push(hymn);
                     } else {
-                      const response = {
-                        touch: false,
-                        number: "<i class='bx bx-info-circle'></i>",
-                        title: 'Nta gisubizo!'
-                      }
-                      listFiller(response);
-                      break;
+                        const response = {
+                            touch: false,
+                            number: "<i class='bx bx-info-circle'></i>",
+                            title: 'Nta gisubizo!'
+                        };
+                        listFiller(response);
+                        break;
                     }
-                });
+                }
     
                 response_S.forEach(hymn => {
                     listFiller(hymn);
