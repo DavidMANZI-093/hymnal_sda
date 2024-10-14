@@ -81,7 +81,7 @@ function initiateSearch(hymns) {
                 hymns.forEach(hymn => {
                     if (searchKey.test(hymn.title)) {
                         response_S.push(hymn);
-                    } else {
+                    } else if (searchValue !== '') {
                        const response = {
                          touch: false,
                          number: "<i class='bx bx-info-circle'></i>",
