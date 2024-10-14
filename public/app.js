@@ -21,84 +21,78 @@ searchInputField.addEventListener('blur', () => {
 });
 
 function initiateSearch(hymns) {
-    
-    searchInputField.addEventListener('input', (event) => {
+
+  searchInputField.addEventListener('input', (event) => {
+    resultList.innerHTML = ''; // Clear previous results
+    const input = event.target.value.trim();
+
+    function listFiller(hymns) {
+      const li = document.createElement('li');
+      li.classList.add('hymn', 'results');
+      const hymnNumber = document.createElement('span');
+      hymnNumber.classList.add('hymn-number');
+      hymnNumber.innerHTML = hymns.number;
+      const hymnTitle = document.createElement('span');
+      hymnTitle.classList.add('hymn-name');
+      hymnTitle.textContent = hymns.title;
+      li.appendChild(hymnNumber);
+      li.appendChild(hymnTitle);
+
+      // Handle click events
+      li.addEventListener('click', () => {
+        searchInputField.value = '';
         resultList.innerHTML = '';
-        const input = event.target.value.trim();
-    
-        function listFiller(hymns) {
-            const li = document.createElement('li');
-            li.classList.add('hymn', 'results');
-            const hymnNumber = document.createElement('span');
-            hymnNumber.classList.add('hymn-number');
-            hymnNumber.innerHTML = hymns.number;
-            const hymnTitle = document.createElement('span');
-            hymnTitle.classList.add('hymn-name');
-            hymnTitle.textContent = hymns.title;
-            li.appendChild(hymnNumber);
-            li.appendChild(hymnTitle);
-            if (!(hymns?.touch) && (hymns.touch === false)) {
-                li.addEventListener('click', () => {
-                    searchInputField.value = '';
-                    resultList.innerHTML = '';
-                });
-            } else {
-                li.addEventListener('click', () => {
-                    updateHymnView(hymns);
-                    searchInputField.value = '';
-                    resultList.innerHTML = '';
-                });
-            }
-            resultList.appendChild(li);
+        if (hymns.touch !== false) {
+          updateHymnView(hymns);
         }
-    
-        function escapeRegExp(string) {
-            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        }
-    
-        if (!isNaN(input) && input !== '') {
-            if (input <= hymns.length && input > 0) {
-                const response = hymns[input - 1];
-                listFiller(response);
-            } else {
-                const response = {
-                    touch: false,
-                    number: "<i class='bx bx-info-circle'></i>",
-                    title: 'Nta gisubizo!'
-                }
-                listFiller(response);
-            }
+      });
+      resultList.appendChild(li);
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // If the input is a number, check for hymn by number
+    if (!isNaN(input) && input !== '') {
+      if (input <= hymns.length && input > 0) {
+        const response = hymns[input - 1];
+        listFiller(response);
+      } else {
+        const response = {
+          touch: false,
+          number: "<i class='bx bx-info-circle'></i>",
+          title: 'Nta gisubizo!'
+        };
+        listFiller(response);
+      }
+    } else {
+      // Otherwise, search by title
+      const searchValue = event.target.value.trim();
+
+      if (searchValue !== '') {
+        const escapedSearchValue = escapeRegExp(searchValue);
+        const searchKey = new RegExp(escapedSearchValue, 'i');
+
+        const response_S = hymns.filter(hymn => searchKey.test(hymn.title));
+
+        // If there are matching hymns, display them
+        if (response_S.length > 0) {
+          response_S.forEach(hymn => {
+            listFiller(hymn);
+          });
         } else {
-            const searchValue = event.target.value.trim();
-    
-            if (searchValue !== '') {
-                const escapedSearchValue = escapeRegExp(searchValue);
-    
-                const searchKey = new RegExp(escapedSearchValue, 'i');
-    
-                const response_S = [];
-    
-                for (const hymn of hymns) {
-                    if (searchKey.test(hymn.title)) {
-                        response_S.push(hymn);
-                    } else {
-                        const response = {
-                            touch: false,
-                            number: "<i class='bx bx-info-circle'></i>",
-                            title: 'Nta gisubizo!'
-                        };
-                        listFiller(response);
-                        break;
-                    }
-                }
-    
-                response_S.forEach(hymn => {
-                    listFiller(hymn);
-                });
-            } 
+          // No matches found, show 'Nta Gisubizo!' message
+          const response = {
+            touch: false,
+            number: "<i class='bx bx-info-circle'></i>",
+            title: 'Nta gisubizo!'
+          };
+          listFiller(response);
         }
-    });
-    
+      }
+    }
+  });
 }
 
 // -------------------------------------- //
