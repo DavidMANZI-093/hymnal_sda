@@ -87,13 +87,15 @@ function initiateSearch(hymns) {
                 response_S.forEach(hymn => {
                     listFiller(hymn);
                 });
-            } else if (searchValue !== '') {
+            } else {
+              if (searchValue !== '') {
               const response = {
                 touch: false,
                 number: "<i class='bx bx-info-circle'></i>",
                 title: 'Nta gisubizo!'
               }
               listFiller(response);
+              } 
             }
         }
     });
