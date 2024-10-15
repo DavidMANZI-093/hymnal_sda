@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -17,6 +18,8 @@
     --mhh-color: #cad7d4;
     --mhhh-color: #e5ebea;
     --mhhhh-color: #f2f5f5;
+
+    --alert-color: #b30000;
 }
 
 body {
@@ -75,10 +78,114 @@ body * {
 .page-header .logo-box {
     position: relative;
     display: flex;
-    width: 4rem;
-    height: 4rem;
+    width: 3.6rem;
+    height: 3.6rem;
     border-radius: 50%;
     background-color: var(--mhh-color);
+    background-image: url(./images/me_logo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.logo-box .alert {
+    position: absolute;
+    height: 0.64rem;
+    width: 0.64rem;
+    background-color: var(--alert-color);
+    border-radius: 50%;
+    bottom: 0;
+    right: 0;
+}
+
+.page-header .small-list {
+    z-index: 4;
+    position: absolute;
+    top: 5rem;
+    left: 4.6rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    max-height: 52rem;
+    gap: 0.4rem;
+    border-radius: 0.4rem;
+    overflow-y: auto;
+    transform: scale(0);
+    transform-origin: top left;
+    background-color: var(--mhh-color);
+    border: solid 0.1rem var(--mh-color);
+    box-shadow: 0 0.5rem 1rem var(--mh-color);
+    transition: transform ease 200ms;
+}
+
+.page-header .small-list.show {
+    transform: scale(1);
+}
+
+.small-list .option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.8rem;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.small-list .option:hover {
+    background-color: var(--mh-color);
+}
+
+.option p {
+    font-size: 1.6rem;
+    color: var(--ml-color);
+}
+
+.theme .theme-button {
+    z-index: 5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    gap: 0.4rem;
+    scale: 0.80;
+    padding: 0.4rem 0.2rem;
+    border-radius: 2.4rem;
+    border: solid 0.1rem var(--main-color);
+    background-color: var(--mh-color);
+}
+
+.theme .theme-show {
+    z-index: 6;
+    position: absolute;
+    left: 0.2rem;
+    display: flex;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background-color: var(--mhh-color);
+}
+
+.theme-button i {
+    z-index: 7;
+    display: inline-flex;
+    font-size: 2rem;
+    margin: 0 0.2rem;
+    color: var(--ml-color);
+}
+
+.option i.info {
+    position: relative;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--ml-color);
+    margin-right: 12.5%;
 }
 
 .page-header .search-box {
@@ -104,7 +211,7 @@ body * {
 }
 
 .search-box .search-bar.focus {
-    border: solid 0.1rem var(--ml-color);
+    border: solid 0.1rem var(--mh-color);
 }
 
 .search-bar i {
@@ -129,15 +236,19 @@ body * {
     opacity: 0.7;
 }
 
-.search-box .result-list {
-    position: abs;
+.search-box .hymn-list.result-list {
+    position: relative;
     top: 0.5rem;
     display: flex;
     flex-direction: column;
     width: 90%;
     height: fit-content;
+    max-height: 24rem;
+    overflow-y: auto;
+    gap: 0.2rem;
+    padding: auto;
     border-radius: 0.8rem;
-    background-color: var(--mhhh-color);
+    background-color: var(--mhh-color);
     box-shadow: 0 0.2rem 1rem var(--mh-color);
 }
 
@@ -163,7 +274,7 @@ body * {
 
 .playlist-toggler i {
     display: none;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     color: var(--ml-color);
 }
 
@@ -171,7 +282,7 @@ body * {
     display: flex;
 }
 
-.page-header .hymn-list {
+.page-header .hymn-list.outer-list {
     z-index: 4;
     position: absolute;
     top: 5rem;
@@ -220,9 +331,11 @@ body * {
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     gap: 1rem;
-    height: 5.2rem;
+    height: 5.3rem;
+    max-height: 5.3rem;
+    border-bottom: solid 0.1rem var(--mh-color);
     background-color: var(--mhh-color);
 }
 
@@ -236,7 +349,7 @@ body * {
 }
 
 .asd-head .head-icon {
-    display: inline-flex;
+    display: none;
 }
 
 .head-icon i {
@@ -254,7 +367,7 @@ body * {
 }
 
 .asd-head h3 {
-    display: inline-flex;
+    display: none;
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--ml-color);
@@ -279,6 +392,10 @@ body * {
     border-radius: 0.4rem;
 }
 
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--mh-color);
+}
+
 .asd-body .hymn-list {
     position: relative;
     top: 0.4rem;
@@ -296,7 +413,7 @@ body * {
     align-items: center;
     width: 100%;
     min-height: 4rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     gap: 1rem;
     border-radius: 0.4rem;
     background-color: var(--mhhh-color);
@@ -304,7 +421,7 @@ body * {
     transition: ease-out 150ms;
 }
 
-.hymn-list .hymn:hover {
+.hymn-list .hymn:hover, .hymn-list .hymn.selected {
     background-color: var(--mh-color);
 }
 
@@ -348,6 +465,31 @@ body * {
     background-color: var(--mhh-color);
 }
 
+.hymn i {
+    font-size: 1.8rem;
+    color: var(--ml-color);
+}
+
+.hymn .hymn-number {
+    display: inline-flex;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--ml-color);
+}
+
+.hymn .hymn-name {
+    position: relative;
+    display: inline-block; /* Try this if inline-flex causes issues */
+    width: 100%;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--ml-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .main-body {
     z-index: 2;
     position: relative;
@@ -369,6 +511,8 @@ body * {
     padding: 1rem 2rem;
     gap: 1rem;
     height: 5.3rem;
+    max-height: 5.3rem;
+    border-bottom: solid 0.1rem var(--mh-color);
     background-color: var(--mhh-color);
 }
 
@@ -376,7 +520,7 @@ body * {
     position: relative;
     display: flex;
     align-items: center;
-    width: 30%;
+    width: fit-content;
     height: 100%;
     gap: 1rem;
 }
@@ -390,18 +534,30 @@ body * {
     background-color: var(--mhhh-color);
 }
 
-.hymn-title .hymn-number, .hymn-title .hymn-name {
+.hymn-title .hymn-number {
     display: inline-flex;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--ml-color);
+}
+
+.hymn-title .hymn-name {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 4rem);
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--ml-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hymn-title .name-holder {
     position: relative;
     display: inline-flex;
     height: 2rem;
-    width: 100%;
+    width: 16rem;
     border-radius: 0.6rem;
     background-color: var(--mhhh-color);
 }
@@ -410,7 +566,7 @@ body * {
     position: relative;
     display: flex;
     align-items: center;
-    width: 10%;
+    width: fit-content;
     height: 100%;
 }
 
@@ -418,16 +574,17 @@ body * {
     position: relative;
     display: inline-flex;
     height: 2rem;
-    width: 100%;
+    width: 8rem;
     border-radius: 0.6rem;
     background-color: var(--mhhh-color);
 }
 
 .hymn-author h3 {
     display: inline-flex;
+    width: fit-content;
     font-size: 1.4rem;
     font-weight: 500;
-    color: var(--mlll-color);
+    color: var(--mll-color);
 }
 
 .main-body .lyrics-box {
@@ -453,23 +610,33 @@ body * {
     position: relative;
     display: flex;
     width: 100%;
-    gap: 2rem;
+    gap: 2.4rem;
 }
 
 .verse .number {
     position: relative;
+    top: 0.4rem;
     display: flex;
+    justify-content: center;
     width: 2rem;
     height: 2rem;
+    padding: 0.2rem 0 0 0;
     border-radius: 0.6rem;
     background-color: var(--mhh-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ml-color);
 }
 
 .verse p {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 1.4rem;
     border-radius: 1rem;
     background-color: var(--mhh-color);
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-align: justify;
+    color: var(--mll-color);
 }
 
 .verse p .paragraph-holder {
@@ -496,11 +663,29 @@ body * {
     width: 100%;
 }
 
+.refrain em {
+    position: relative;
+    display: inline-flex;
+    left: -1rem;
+    margin-bottom: 0.72rem;
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--mll-color);
+    text-decoration: underline;
+}
+
 .refrain p {
+    position: relative;
     width: 85%;
-    padding: 1rem;
+    padding: 1rem 1.4rem 1rem 3.2rem;
+    margin-right: 1rem;
     border-radius: 1rem;
     background-color: var(--mhh-color);
+    font-size: 1.5rem;
+    text-align: justify;
+    font-weight: 400;
+    color: var(--mll-color);
 }
 
 .refrain p .paragraph-holder {
@@ -527,15 +712,55 @@ body * {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 859px) {
+    .page-header .search-box {
+        width: 46.67%;
+        margin-right: 11.67%;
+    }
+
+    .full-body .aside-body {
+        width: 30%;
+    }
+
+    .full-body .main-body {
+        width: 70%;
+    }
+
     .main-body .lyrics-box {
-        padding: 6rem 6rem;
+        padding: 6rem 8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-header .search-box {
+        width: 50%;
+        margin: 0;
+    }
+
+    .page-header .playlist-toggler {
+        display: flex;
+    }
+
+    .page-header .outer-list.active {
+        transform: scale(1);
+    } 
+
+    .full-body .aside-body {
+        display: none;
+    }
+
+    .full-body .main-body {
+        width: 100%;
+    }
+
+    .main-body .lyrics-box {
+        padding: 6rem 8rem;
     }
 }
 
 @media (max-width: 599px) {
     .page-header .search-box {
-        width: 50%;
+        width: 60%;
         margin: 0;
     }
 
@@ -556,13 +781,29 @@ body * {
     }
 
     .main-head .hymn-title {
-        width: 70%;
+        width: 100%;
     }
 
     .main-head .hymn-author {
         display: none;
     }
 
+    .main-body .lyrics-box {
+        padding: 6rem 8rem;
+    }
+
+    .lyrics .verse {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-body .lyrics-box {
+        padding: 6rem 4rem;
+    }
+}
+
+@media (max-width: 375px) {
     .main-body .lyrics-box {
         padding: 6rem 2rem;
     }

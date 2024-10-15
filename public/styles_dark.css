@@ -18,6 +18,8 @@
     --mhh-color: #cad7d4;
     --mhhh-color: #e5ebea;
     --mhhhh-color: #f2f5f5;
+
+    --alert-color: #b30000;
 }
 
 body {
@@ -85,6 +87,17 @@ body * {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;;
+}
+
+.logo-box .alert {
+    position: absolute;
+    height: 0.64rem;
+    width: 0.64rem;
+    background-color: var(--alert-color);
+    border-radius: 50%;
+    bottom: 0;
+    right: 0;
 }
 
 .page-header .small-list {
@@ -100,12 +113,16 @@ body * {
     gap: 0.4rem;
     border-radius: 0.4rem;
     overflow-y: auto;
-    transform: scale(1); /* Change */
-    transform-origin: top right;
+    transform: scale(0);
+    transform-origin: top left;
     background-color: var(--mll-color);
     border: solid 0.1rem var(--ml-color);
     box-shadow: 0 0.5rem 1rem var(--mll-color);
     transition: transform ease 200ms;
+}
+
+.page-header .small-list.show {
+    transform: scale(1);
 }
 
 .small-list .option {
@@ -405,8 +422,8 @@ body * {
     transition: ease-out 150ms;
 }
 
-.hymn-list .hymn:hover {
-    background-color: var(--main-color);
+.hymn-list .hymn:hover, .hymn-list .hymn.selected {
+    background-color: var(--ml-color);
 }
 
 .hymn-list .hymn:active {
@@ -520,11 +537,23 @@ body * {
     background-color: var(--ml-color);
 }
 
-.hymn-title .hymn-number, .hymn-title .hymn-name {
+.hymn-title .hymn-number {
     display: inline-flex;
     font-weight: 500;
     font-size: 1.8rem;
     color: var(--mh-color);
+}
+
+.hymn-title .hymn-name {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 4rem);
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--mh-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hymn-title .name-holder {
@@ -555,6 +584,7 @@ body * {
 
 .hymn-author h3 {
     display: inline-flex;
+    width: fit-content;
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--mh-color);
@@ -754,7 +784,7 @@ body * {
     }
 
     .main-head .hymn-title {
-        width: fit-content;
+        width: 100%;
     }
 
     .main-head .hymn-author {

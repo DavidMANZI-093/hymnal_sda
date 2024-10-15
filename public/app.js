@@ -1,8 +1,42 @@
+const toggleButton = document.querySelector('.theme');
+const themeShow = document.querySelector('.theme-show');
+const themeStyle = document.querySelector('.theme-style');
+
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme) {
+    themeStyle.setAttribute('href', savedTheme);
+}
+
+function changeTheme() {
+  if (themeStyle.getAttribute('href') === 'styles_light.css') {
+      themeStyle.setAttribute('href', 'styles_dark.css');
+      localStorage.setItem('theme', 'styles_dark.css');
+  } else {
+      themeStyle.setAttribute('href', 'styles_light.css');
+      localStorage.setItem('theme', 'styles_light.css');
+  }
+}
+
+toggleButton.addEventListener('click', changeTheme);
+
+
+// -------------------------------------- //
+
+const easterEgg = document.querySelector('.logo-box');
+const smallList = document.querySelector('.small-list');
+
+easterEgg.addEventListener('click', toggleSmallList);
+
+// -------------------------------------- //
+
 window.addEventListener('resize', () => {
     if (window.innerWidth > 767) {
-        fcToggleHymnList();
+        closeAllLists();
     }
 });
+
+// -------------------------------------- //
 
 const searchInputField = document.querySelector('#search-in');
 const searchBar = document.querySelector('.search-bar');
@@ -23,7 +57,7 @@ searchInputField.addEventListener('blur', () => {
 function initiateSearch(hymns) {
 
   searchInputField.addEventListener('input', (event) => {
-    resultList.innerHTML = ''; // Clear previous results
+    resultList.innerHTML = '';
     const input = event.target.value.trim();
 
     function listFiller(hymns) {
@@ -38,7 +72,6 @@ function initiateSearch(hymns) {
       li.appendChild(hymnNumber);
       li.appendChild(hymnTitle);
 
-      // Handle click events
       li.addEventListener('click', () => {
         searchInputField.value = '';
         resultList.innerHTML = '';
@@ -53,7 +86,6 @@ function initiateSearch(hymns) {
       return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // If the input is a number, check for hymn by number
     if (!isNaN(input) && input !== '') {
       if (input <= hymns.length && input > 0) {
         const response = hymns[input - 1];
@@ -67,7 +99,6 @@ function initiateSearch(hymns) {
         listFiller(response);
       }
     } else {
-      // Otherwise, search by title
       const searchValue = event.target.value.trim();
 
       if (searchValue !== '') {
@@ -76,13 +107,11 @@ function initiateSearch(hymns) {
 
         const response_S = hymns.filter(hymn => searchKey.test(hymn.title));
 
-        // If there are matching hymns, display them
         if (response_S.length > 0) {
           response_S.forEach(hymn => {
             listFiller(hymn);
           });
         } else {
-          // No matches found, show 'Nta Gisubizo!' message
           const response = {
             touch: false,
             number: "<i class='bx bx-info-circle'></i>",
@@ -106,27 +135,68 @@ const header = document.querySelector('.page-header');
 
 
 function toggleHymnList() {
-    openPlaylistButton.classList.toggle('show');
-    closePlaylistButton.classList.toggle('show');
-    backdrop.classList.toggle('show');
-    outerHymnPlaylist.classList.toggle('active');
+    if (!(outerHymnPlaylist.classList.contains('active'))) {
+      if (smallList.classList.contains('show')) {
+        smallList.classList.toggle('show');
+        openPlaylistButton.classList.toggle('show');
+        closePlaylistButton.classList.toggle('show');
+        outerHymnPlaylist.classList.toggle('active');
+      } else {
+        openPlaylistButton.classList.toggle('show');
+        closePlaylistButton.classList.toggle('show');
+        outerHymnPlaylist.classList.toggle('active');
+        backdrop.classList.toggle('show');
+      }
+    } else {
+      openPlaylistButton.classList.toggle('show');
+      closePlaylistButton.classList.toggle('show');
+      outerHymnPlaylist.classList.toggle('active');
+      backdrop.classList.toggle('show');
+    }
 }
 
-function fcToggleHymnList() {
+function toggleSmallList() {
+  if (!(smallList.classList.contains('show'))) {
     if (outerHymnPlaylist.classList.contains('active')) {
-        toggleHymnList();
+      outerHymnPlaylist.classList.toggle('active');
+      openPlaylistButton.classList.toggle('show');
+      closePlaylistButton.classList.toggle('show');
+      smallList.classList.toggle('show');
+    } else {
+      smallList.classList.toggle('show');
+      backdrop.classList.toggle('show');
+      themeShow.classList.add('wiggle');
+      setTimeout(() => {
+        themeShow.classList.remove('wiggle');
+      }, 1000);
     }
+  } else {
+    smallList.classList.toggle('show');
+    backdrop.classList.toggle('show');
+    themeShow.classList.add('wiggle');
+      setTimeout(() => {
+        themeShow.classList.remove('wiggle');
+      }, 1000);
+  }
 }
 
-function hFcToggleHymnList(e) {
-    if (outerHymnPlaylist.classList.contains('active') && !(e.target.closest('.playlist-toggler'))) {
-        toggleHymnList();
-    }
+function closeAllLists() {
+  if (smallList.classList.contains('show')) {
+    toggleSmallList();
+  } else if (outerHymnPlaylist.classList.contains('active')) {
+    toggleHymnList();
+  }
+}
+
+function hFcCloseAllLists(e) {
+  if (!(e.target.closest('.playlist-toggler')) && !(e.target.closest('.logo-box'))) {
+    closeAllLists();
+  }
 }
 
 playlistButton.addEventListener('click', toggleHymnList);
-backdrop.addEventListener('click', fcToggleHymnList);
-header.addEventListener('click', (e) => hFcToggleHymnList(e));
+backdrop.addEventListener('click', closeAllLists);
+header.addEventListener('click', (event) => hFcCloseAllLists(event));
 
 // -------------------------------------- //
 
@@ -183,7 +253,25 @@ function displayHymns(hymns) {
     initiateSearch(hymns);
 }
 
+function highLightHymn(object) {
+  document.querySelectorAll('.hymn').forEach(hymn => {
+    hymn.classList.remove('selected');
+  });
+  
+  const hymns = document.querySelectorAll('.hymn');
+
+  hymns.forEach(hymn => {
+    const hymnNumber = hymn.querySelector('span.hymn-number');
+    if (hymnNumber.textContent == object.number) {
+      hymn.classList.add('selected');
+      console.log('dine');
+    }
+  });
+
+}
+
 async function updateHymnView(object) {
+  highLightHymn(object);
     if (object) {
         const asideIconHolder = document.querySelector('.asd-head .icon-holder');
         const asideHeadHolder = document.querySelector('.asd-head .head-holder');
