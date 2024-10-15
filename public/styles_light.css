@@ -544,7 +544,7 @@ body * {
 .hymn-title .hymn-name {
     position: relative;
     display: inline-block;
-    width: calc(100% - 4rem);
+    width: fit-content;
     font-weight: 500;
     font-size: 1.8rem;
     color: var(--ml-color);
