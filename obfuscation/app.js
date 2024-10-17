@@ -37,21 +37,10 @@ const searchInputField = document.querySelector('#search-in');
 const searchBar = document.querySelector('.search-bar');
 const resultList = document.querySelector('.result-list');
 
-searchInputField.addEventListener('focus', () => {
-  searchBar.classList.add('focus');
-});
-
-searchInputField.addEventListener('blur', () => {
-  setTimeout(() => {
-    searchBar.classList.remove('focus');
-    resultList.innerHTML = '';
-    searchInputField.value = '';
-  }, 100);
-});
-
-function initiateSearch(hymns) {
+// Only attach search event listener after hymns are fetched and input is typed
+function attachSearchInputEvent(hymns) {
   searchInputField.addEventListener('input', (event) => {
-    resultList.innerHTML = '';
+    resultList.innerHTML = ''; // Clear any previous search results
     const input = event.target.value.trim();
 
     if (!isNaN(input) && input !== '') {
@@ -61,6 +50,19 @@ function initiateSearch(hymns) {
     }
   });
 }
+
+// Focus event listeners for search input to manage its appearance
+searchInputField.addEventListener('focus', () => {
+  searchBar.classList.add('focus');
+});
+
+searchInputField.addEventListener('blur', () => {
+  setTimeout(() => {
+    searchBar.classList.remove('focus');
+    resultList.innerHTML = ''; // Clear search results when input loses focus
+    searchInputField.value = ''; // Clear the input field
+  }, 100);
+});
 
 function handleNumberSearch(input, hymns) {
   const hymnNumber = parseInt(input, 10);
@@ -223,9 +225,9 @@ function displayHymns(hymns) {
     });
   });
 
-  updateHymnView(hymns[0]);
+  updateHymnView(hymns[0]); // Load the first hymn on page load
   attachListeners(hymns);
-  initiateSearch(hymns);
+  attachSearchInputEvent(hymns); // Attach search input event after loading hymns
 }
 
 function highLightHymn(object) {
@@ -257,25 +259,23 @@ async function updateHymnView(object) {
     span1.textContent = `${object.number}.`;
 
     const span2 = document.createElement('span');
-    span2.classList.add('hymn-name');
+    span2.classList.add('hymn-title-text');
     span2.textContent = object.title;
-
-    const h3 = document.createElement('h3');
-    h3.textContent = object.author;
 
     hymnTitle.appendChild(span1);
     hymnTitle.appendChild(span2);
-    hymnAuthor.appendChild(h3);
 
-    const lyrics = document.querySelector('.lyrics');
+    hymnAuthor.textContent = object.author ? object.author : 'Unknown Author';
+
+    const lyrics = document.querySelector('.hymn-lyrics');
     lyrics.innerHTML = '';
 
-    object.verses.forEach((verse, index) => {
+    object.lyrics.forEach((verse, index) => {
       const div = document.createElement('div');
       div.classList.add('verse');
       
       const span = document.createElement('span');
-      span.classList.add('number');
+      span.classList.add('verse-number');
       span.textContent = index + 1;
 
       const p = document.createElement('p');
