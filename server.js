@@ -47,7 +47,7 @@ app.get('/hymns', async (req, res) => {
 });
 
 app.get('/hymns/:id', [
-    param('id').isInt().withMessage('ID must be an integer');
+    param('id').isInt().withMessage('ID must be an integer')
 ] ,async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
