@@ -7,6 +7,7 @@ const db_conn = new Pool({
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
+    access: process.env.ACCESS_TOKEN_SECRET,
     // connectionTimeoutMillis: 15000, // Increase to 15 seconds
     // idleTimeoutMillis: 10000, // Add idle timeout
     // max: 10, // Set maximum pool size
