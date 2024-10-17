@@ -36,7 +36,9 @@ if (app.get('env') === 'production') {
 // const credentials = { key: privateKey, cert: certificate }; //
 
 function authenticateToken(req, res, next) {
-    const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; 
+
     if (!token) return res.status(401).send('Access Denied');
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -46,17 +48,6 @@ function authenticateToken(req, res, next) {
     });
 }
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/hymns', authenticateToken, async (req, res) => {
-    try {
-        const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
-        res.json(result.rows);
-    } catch (err) {
-        console.error('Error fetching hymns', err);
-        res.status(500).send('Server Error');
-    }
-});
 
 app.get('/hymns/:id', authenticateToken, [
     param('id').isInt().withMessage('ID must be an integer')
