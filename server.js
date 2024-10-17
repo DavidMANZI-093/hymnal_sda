@@ -6,9 +6,9 @@ const rateLimit = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
 const db_conn = require('./db');
 const app = express();
+const path = require('path');
 // const https = require('https'); //
 // const fs = require('fs'); //
-// const path = require('path');
 
 const port = process.env.PORT || 10000;
 
