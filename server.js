@@ -3,6 +3,7 @@ const { param } = require('express-validator');
 const xss = require('xss-clean');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const jwt = require('jsonwebtoken');
 // const https = require('https'); //
 // const fs = require('fs'); //
 const db_conn = require('./db');
@@ -34,9 +35,20 @@ if (app.get('env') === 'production') {
 
 // const credentials = { key: privateKey, cert: certificate }; //
 
+function authenticateToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).send('Access Denied');
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).send('Invalid Token');
+        req.user = user;
+        next();
+    });
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/hymns', async (req, res) => {
+app.get('/hymns', authenticateToken, async (req, res) => {
     try {
         const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
         res.json(result.rows);
@@ -46,7 +58,7 @@ app.get('/hymns', async (req, res) => {
     }
 });
 
-app.get('/hymns/:id', [
+app.get('/hymns/:id', authenticateToken, [
     param('id').isInt().withMessage('ID must be an integer')
 ] ,async (req, res) => {
     const errors = validationResult(req);
