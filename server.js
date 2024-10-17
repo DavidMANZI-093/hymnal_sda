@@ -4,11 +4,11 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
+const db_conn = require('./db');
+const app = express();
 // const https = require('https'); //
 // const fs = require('fs'); //
-const db_conn = require('./db');
-const path = require('path');
-const app = express();
+// const path = require('path');
 
 const port = process.env.PORT || 10000;
 
@@ -48,6 +48,21 @@ function authenticateToken(req, res, next) {
     });
 }
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the SDA Hymnal API!');
+});
+
+app.get('/hymns', authenticateToken, async (req, res) => {
+    try {
+        const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Error fetching hymns', err);
+        res.status(500).send('Server Error');
+    }
+});
 
 app.get('/hymns/:id', authenticateToken, [
     param('id').isInt().withMessage('ID must be an integer')
