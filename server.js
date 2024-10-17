@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const db_conn = require('./db');
 const app = express();
 const path = require('path');
+require('dotenv').config();
 // const https = require('https'); //
 // const fs = require('fs'); //
 
@@ -35,26 +36,24 @@ if (app.get('env') === 'production') {
 
 // const credentials = { key: privateKey, cert: certificate }; //
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; 
-
-    if (!token) return res.status(401).send('Access Denied');
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(403).send('Invalid Token');
-        req.user = user;
-        next();
-    });
-}
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     res.send('Welcome to the SDA Hymnal API!');
 });
 
-app.get('/hymns', authenticateToken, async (req, res) => {
+const apiKeys = [process.env.ACCESS_TOKEN_SECRET];
+
+function authenticateApiKey(req, res, next) {
+    const apiKey = req.query.api_key || req.headers['x-api-key'];
+
+    if (!apiKey ||!apiKeys.includes(apiKey)) {
+        return res.status(401).send('Unauthorized: Invalid API Key');
+    }
+
+    next();
+}
+app.get('/hymns', authenticateApiKey, async (req, res) => {
     try {
         const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
         res.json(result.rows);
@@ -64,7 +63,7 @@ app.get('/hymns', authenticateToken, async (req, res) => {
     }
 });
 
-app.get('/hymns/:id', authenticateToken, [
+app.get('/hymns/:id', authenticateApiKey, [
     param('id').isInt().withMessage('ID must be an integer')
 ] ,async (req, res) => {
     const errors = validationResult(req);

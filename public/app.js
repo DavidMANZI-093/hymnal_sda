@@ -202,7 +202,7 @@ header.addEventListener('click', (event) => hFcCloseAllLists(event));
 
 async function fetchHymns() {
     try {
-        const response = await fetch('/hymns');
+        const response = await fetch('/hymns?api_key=158649e85e694ead18f97ac89a5ede40');
         const hymns = await response.json();
         displayHymns(hymns);
     } catch (error) {
