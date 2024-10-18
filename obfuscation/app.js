@@ -5,17 +5,23 @@ const themeStyle = document.querySelector('.theme-style');
 const savedTheme = localStorage.getItem('theme');
 
 if (savedTheme) {
-    themeStyle.setAttribute('href', savedTheme);
+  themeStyle.setAttribute('href', savedTheme);
+} else {
+  themeStyle.setAttribute('href', 'styles_light.css');
 }
 
 function changeTheme() {
-  if (themeStyle.getAttribute('href') === 'styles_light.css') {
+  themeStyle.addEventListener('load', function() {
+    if (themeStyle.getAttribute('href') === 'styles_light.css') {
       themeStyle.setAttribute('href', 'styles_dark.css');
       localStorage.setItem('theme', 'styles_dark.css');
-  } else {
+    } else {
       themeStyle.setAttribute('href', 'styles_light.css');
       localStorage.setItem('theme', 'styles_light.css');
-  }
+    }
+  });
+
+  themeStyle.setAttribute('href', themeStyle.getAttribute('href'));
 }
 
 toggleButton.addEventListener('click', changeTheme);
