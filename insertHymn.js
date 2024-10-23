@@ -1,23 +1,23 @@
 const fs = require('fs');
 const db_conn = require('./db');
 
-// Read the JSON file
-const jsonData = JSON.parse(fs.readFileSync('json sources/hymnal-rw.json', 'utf-8'));
 
-// Format the data into the required structure
+const jsonData = JSON.parse(fs.readFileSync('json sources/hymnal-ext.json', 'utf-8'));
+
+
 const formatHymns = (data) => {
   return data.hymns.map(hymn => {
     return {
       title: hymn.title,
-      verses: hymn.stanzas.verses.map(stanza => stanza.join(' ')), // Join lines into single verse strings
-      refrain: hymn.stanzas.refrain.length > 0 ? hymn.stanzas.refrain.join(' ') : '', // Join refrain lines, or leave empty if none
-      number: parseInt(hymn.num, 10), // Ensure number is a number
-      author: hymn.author ? hymn.author : 'Arranged' // Replace missing author with "Arranged"
+      verses: hymn.verses,
+      refrain: hymn.refrain,
+      number: hymn.number,
+      author: hymn.author
     };
   });
 };
 
-// Insert hymns into the database
+
 const insertHymns = async (hymnsArray) => {
   try {
     const query = `
@@ -25,7 +25,7 @@ const insertHymns = async (hymnsArray) => {
       VALUES ($1, $2, $3, $4, $5);
     `;
 
-    const insertPromises = hymnsArray.map(hymn => {
+    const insertPromises = hymnsArray.map(async hymn => {
       const values = [
         hymn.title,
         hymn.verses,
@@ -33,22 +33,25 @@ const insertHymns = async (hymnsArray) => {
         hymn.number,
         hymn.author
       ];
-      
-      // Return the promise for each query execution
-      return db_conn.query(query, values);
+
+
+      try {
+        return await db_conn.query(query, values);
+      } catch (err) {
+        console.error(`Error inserting hymn titled "${hymn.title}":`, err.message);
+        throw err;
+      }
     });
 
-    // Use Promise.all to wait for all insertions to complete
-    await Promise.all(insertPromises);
 
-    console.log('All hymns added successfully');
+    await Promise.all(insertPromises);
+    console.log('All hymns added successfully!');
   } catch (err) {
-    console.error('Error inserting hymns', err);
+    console.error('An error occurred during the hymn insertion process:', err.message);
   } finally {
     db_conn.end();
   }
 };
 
-// Process the hymns data and insert it into the database
 const hymnsArray = formatHymns(jsonData);
 insertHymns(hymnsArray);
