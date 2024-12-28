@@ -19,6 +19,9 @@ const formatHymns = (data) => {
 
 
 const insertHymns = async (hymnsArray) => {
+
+  await db_conn.query('DELETE FROM Hymns;'); // Delete faulty entries
+
   try {
     const query = `
       INSERT INTO Hymns (title, verses, refrain, number, author)
