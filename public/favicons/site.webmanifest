@@ -1,5 +1,5 @@
 {
-    "name": "Indirimbo zo Guhimbaza Imana",
+    "name": "Indirimbo",
     "short_name": "Indirimbo",
     "icons": [
         {
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#030606",
+    "background_color": "#030606",
     "display": "standalone"
 }
