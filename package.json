@@ -18,8 +18,7 @@
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.15.6",
-    "xss-clean": "^0.1.4"
+    "pg": "^8.15.6"
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.1"

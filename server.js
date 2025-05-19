@@ -1,6 +1,5 @@
 const express = require('express');
 const { param } = require('express-validator');
-const xss = require('xss-clean');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
@@ -21,14 +20,21 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-app.use(xss());
-
 app.use(helmet());
 
+app.use((err, req, res, next) => {
+    console.error('Error:', err.stack);
+    res.status(500).json({
+        message: 'Internal Server Error',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
+
+// Production error handler
 if (app.get('env') === 'production') {
     app.use((err, req, res, next) => {
-        console.error(err.stack);
-        res.status(500).send('Something went worng!');
+        console.error('Production error:', err.stack);
+        res.status(500).send('Something went wrong!');
     });
 }
 
