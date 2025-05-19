@@ -1,19 +1,25 @@
 {
     "name": "Indirimbo",
     "short_name": "Indirimbo",
+    "description": "SDA Hymnal in Ikinyarwanda",
+    "start_url": "/",
+    "scope": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "/android-chrome-384x384.png",
             "sizes": "384x384",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ],
-    "theme_color": "#030606",
-    "background_color": "#030606",
-    "display": "standalone"
+    "theme_color": "#152f2a",
+    "background_color": "#152f2a",
+    "display": "standalone",
+    "orientation": "portrait"
 }
