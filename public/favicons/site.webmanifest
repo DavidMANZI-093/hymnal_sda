@@ -21,5 +21,7 @@
     "theme_color": "#152f2a",
     "background_color": "#152f2a",
     "display": "standalone",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "prefer_related_applications": false,
+    "id": "/?homescreen=1"
 }
