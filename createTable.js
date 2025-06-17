@@ -1,6 +1,8 @@
 const db_conn = require('./db');
+const db_conn_safe = require('./db1');
 
 const createHymnsTable = async () => {
+    let activeConnection = db_conn;
     try {
         const query = `
             CREATE TABLE IF NOT EXISTS Hymns (
@@ -12,12 +14,19 @@ const createHymnsTable = async () => {
                 author VARCHAR(255) NOT NULL
             );
         `;
-        await db_conn.query(query);
-        console.log('Hymns table created successfully');
+        try {
+            await db_conn.query(query);
+            console.log('Hymns table created successfully using primary database');
+        } catch (primaryErr) {
+            console.log('Primary database connection failed. Falling back to secondary database...');
+            activeConnection = db_conn_safe;
+            await db_conn_safe.query(query);
+            console.log('Hymns table created successfully using secondary database');
+        }
     } catch (err) {
-        console.error('Error creating table', err);
+        console.error('Error creating table on both primary and secondary databases', err);
     } finally {
-        db_conn.end();
+        await activeConnection.end();
     }
 };
 

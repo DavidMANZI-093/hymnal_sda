@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const jwt = require('jsonwebtoken');
 const db_conn = require('./db');
+const db_conn_safe = require('./db1');
 const app = express();
 const path = require('path');
 require('dotenv').config();
@@ -62,10 +63,16 @@ function authenticateApiKey(req, res, next) {
 }
 app.get('/hymns', authenticateApiKey, async (req, res) => {
     try {
-        const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
-        res.json(result.rows);
+        try {
+            const result = await db_conn.query('SELECT * FROM Hymns ORDER BY number ASC');
+            res.json(result.rows);
+        } catch (primaryErr) {
+            console.log('Primary database connection failed. Falling back to secondary database...');
+            const result = await db_conn_safe.query('SELECT * FROM Hymns ORDER BY number ASC');
+            res.json(result.rows);
+        }
     } catch (err) {
-        console.error('Error fetching hymns', err);
+        console.error('Error fetching hymns from both databases', err);
         res.status(500).send('Server Error');
     }
 });
@@ -79,14 +86,23 @@ app.get('/hymns/:id', authenticateApiKey, [
     }
     try {
         const { id } = req.params;
-        const result = await db_conn.query('SELECT * FROM Hymns WHERE id = $1', [id]);
-        if (result.rows.length > 0) {
-            res.json(result.rows[0]);
-        } else {
-            res.status(404).send('Hymn not found');
+        try {
+            const result = await db_conn.query('SELECT * FROM Hymns WHERE id = $1', [id]);
+            if (result.rows.length > 0) {
+                res.json(result.rows[0]);
+                return;
+            }
+        } catch (primaryErr) {
+            console.log('Primary database connection failed. Falling back to secondary database...');
+            const result = await db_conn_safe.query('SELECT * FROM Hymns WHERE id = $1', [id]);
+            if (result.rows.length > 0) {
+                res.json(result.rows[0]);
+                return;
+            }
         }
+        res.status(404).send('Hymn not found');
     } catch (err) {
-        console.err('Error fetcing hymn by id', err);
+        console.error('Error fetching hymn by id from both databases', err);
         res.status(500).send('Server Error');
     }
 });

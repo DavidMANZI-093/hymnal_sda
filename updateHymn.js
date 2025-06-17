@@ -1,4 +1,5 @@
 const db_conn = require('./db');
+const db_conn_safe = require('./db1');
 
 const updateHymn = async () => {
   try {
@@ -23,12 +24,23 @@ const updateHymn = async () => {
       'Unknown'
     ];
 
-    await db_conn.query(query, values);
-    console.log('Hymn updated successfully');
+    try {
+      await db_conn.query(query, values);
+      console.log('Hymn updated successfully in primary database');
+    } catch (primaryErr) {
+      console.log('Primary database connection failed. Falling back to secondary database...');
+      await db_conn_safe.query(query, values);
+      console.log('Hymn updated successfully in secondary database');
+    }
   } catch (err) {
-    console.error('Error updating hymn', err);
+    console.error('Error updating hymn in both databases', err);
   } finally {
-    db_conn.end();
+    try {
+      await db_conn.end();
+    } catch {}
+    try {
+      await db_conn_safe.end();
+    } catch {}
   }
 };
 
