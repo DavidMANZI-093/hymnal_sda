@@ -6,12 +6,12 @@ const db_conn = new Pool({
     host: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    // port: process.env.DB_PORT, // Optional
     connectionTimeoutMillis: 15000, // Increase to 15 seconds
     // idleTimeoutMillis: 10000, // Add idle timeout
     // max: 10, // Set maximum pool size
     ssl: {
-        rejectUnauthorized: false // Only for testing purposes
+       rejectUnauthorized: false // Only for testing purposes
     }
 });
 
