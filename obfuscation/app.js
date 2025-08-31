@@ -254,7 +254,7 @@ function displayHymns(hymns) {
         }
     });
 
-    updateHymnView(hymns[0]);
+    updateHymnView(hymns[parseInt(localStorage.getItem('last')) || 0]);
     attachListeners(hymns);
     initiateSearch(hymns);
 }
@@ -278,6 +278,7 @@ function highLightHymn(object) {
 async function updateHymnView(object) {
   highLightHymn(object);
     if (object) {
+	localStorage.setItem('last', object.number - 1);
         const asideIconHolder = document.querySelector('.asd-head .icon-holder');
         const asideHeadHolder = document.querySelector('.asd-head .head-holder');
         if (asideIconHolder && asideHeadHolder) {
