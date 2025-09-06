@@ -107,6 +107,31 @@ app.get('/hymns/:id', authenticateApiKey, [
     }
 });
 
+app.get('/health', async (req, res) => {
+    try {
+        // Quick database ping
+        await db_conn.$queryRaw`SELECT 1`;
+
+        res.status(200).json({
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            uptime: process.uptime(),
+            memory: {
+                used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100 + ' MB',
+                total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024 * 100) / 100 + ' MB'
+            },
+            database: 'connected',
+            version: process.env.npm_package_version || 'unknown',
+        });
+    } catch (error) {
+        res.status(503).json({
+            status: 'unhealthy',
+            timestamp: new Date().toISOString(),
+            error: 'Database connection failed'
+        })
+    }
+})
+
 // const httpsServer = https.createServer(credentials, app); //
 
 // httpsServer.listen(port, () => { //
