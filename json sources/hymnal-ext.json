@@ -4440,7 +4440,7 @@
             "author": "Arranged"
         },
         {
-            "id": 350,
+            "id": 349,
             "title": "Mugenzi Komera",
             "verses": [
                 "Mugenzi komera Yes’ ari hafi, Twamutegereje kera, Tugiye kwitahir’ iwacu heza, Turirimbe ko dutsinze, Twihangane twe kumuhemukaho, Kandi w’ ataduhemukiye, Yatwerets’ urukundo ruhebuje, Nirwo rwatumy’ adupfira.",
@@ -4451,6 +4451,43 @@
             "refrain": "",
             "number": 350,
             "author": "Arranged"
+        },
+        {
+            "id": 350,
+            "title": "Umunsi Mwiza Uri Bugufi",
+            "verses": [
+                "Dor’ umunsi mwiza ugiye kugera, Tukibera ibudapfa. Aho tuzibera hahebuj’ ubwiza, N’ umuns’ utangaje!",
+                "Imitima yacu irahumurirwa, Ntabwo ijya igoheka. Turifuza kubon’ uwo munsi mwiza, Tuzaba mu bwiza.",
+                "Za ntwari zasinzirany’ ibyiringiro, Tugiye kuzabonana. Nta marir’ azongera kuturangwaho, Mu murwa w’ Imana."
+            ],
+            "refrain": "Umwijim’ ugiye gutamuruka, Tukabah’ ubutazongera gupfa. Mbega ihumure twahawe na Yesu! Dor’ ari bugufi.",
+            "number": 350,
+            "author": "Rev. Rupert Cravens"
+        },
+        {
+            "id": 351,
+            "title": "Nitugera Mw’ Ijuru",
+            "verses": [
+                "Turirimb’ urukundo rwa Yesu; Impuhwe ndetse n’ ubuntu bye. Ari kudutegurir’ aho tuzaba, mw’ ijuru.",
+                "N’ ubw’ ibicu bidukingirije, Bitubuza kureba neza, Turi hafi yo gusoz’ urugendo rukomeye.",
+                "Dukomeze dukorer’ Imana, Tuzabihemberwa nta shiti; Turi hafi guhabw’ ubugingo bw’ iteka ryose!",
+                "Dor’ ikamba rir’ imbere yacu, Tuzaryambikirwa mw’ ijuru, N’ ahantu h’ igikundiro, harahebuje rwose."
+            ],
+            "refrain": "Nitugera mw’ ijuru, mbeg’ umunezero tuzagira! Turirimb’ indirimbo nziza z’abanesheje.",
+            "number": "352",
+            "author": "Emily D. Wilson"
+        },
+        {
+            "id": 352,
+            "title": "Mu Maboko Ya Yesu",
+            "verses": [
+                "Mu maboko ya Yesu, Ndi mu gituza cye! Mpabon’ umunezero, Kubw’ urukundo rwe. Mbega ngo ndaririmba, Nk’ abamarayika: Aho hantu heza, Ku Nyanja ya Yasipi!",
+                "Mu maboko ya Yesu, Anyitaho rwose; Ntsind’ ibigeragezo, Ni ho nesh’ icyaha. Mu maboko ya Yesu, Hehe n’ umubabaro! Ntabwo ngishidikanya, Yes’ amar’ ubwoba.",
+                "Yesu Mukunzi wanjye, Wowe nihishamo; Ni wowe niringira, Wowe wampfiriye. Gitare gikomeye, Ndagutegereje; Nuza ku manywa cyangwa nijor’ uzanjyana!"
+            ],
+            "refrain": "Mu maboko ya Yesu, Ndi mu gituza cye; Mpabon’ umunezero, Kubw’ urukundo rwe.",
+            "number": 353,
+            "author": "W. H. Doane"
         }
     ]
 }
